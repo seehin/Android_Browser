@@ -1,5 +1,6 @@
 package com.example.practise.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,7 +21,7 @@ public interface HistoryRecordDao {
          * @return
          */
         @Query("SELECT * FROM historyrecord")
-        List<HistoryRecordBean> getHistoryRecordAll();
+        LiveData<List<HistoryRecordBean>> getHistoryRecordAll();
 
         /**
          * 根据指定字段模糊查询，根据输入的搜索内容搜索网址的名称name和网址url
@@ -28,7 +29,7 @@ public interface HistoryRecordDao {
          * @return
          */
         @Query("SELECT * FROM historyrecord WHERE hname = :input or hurl = :input")
-        List<HistoryRecordBean> loadHistoryRecordByinput(String input);
+        LiveData<List<HistoryRecordBean>> loadHistoryRecordByinput(String input);
 
         /**
          * 根据时间进行查询，查找出同一天的所有历史记录
@@ -36,7 +37,7 @@ public interface HistoryRecordDao {
          * @return
          */
         @Query("SELECT * FROM historyrecord WHERE hdate = :dateString")
-        List<HistoryRecordBean> loadHistoryRecordByDate(String dateString);
+        LiveData<List<HistoryRecordBean>> loadHistoryRecordByDate(String dateString);
 
         /**
          * 项数据库添加数据

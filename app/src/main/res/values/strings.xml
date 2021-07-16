@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Practise</string>
+    <string name="action_search">搜索</string>
+    <string name="action_close">关闭</string>
 </resources>

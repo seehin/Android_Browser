@@ -15,15 +15,15 @@ import com.example.practise.utils.DataConversionFactory;
 
 @Database(entities = {HistoryRecordBean.class, BookmarkBean.class}, version = 1, exportSchema = false)
 public abstract class BrowserDatabase extends RoomDatabase {
+    private static BrowserDatabase INSTANCE;
 
-    public static BrowserDatabase getDefault(Context context) {
-        return buildDatabase(context);
-    }
-
-    private static BrowserDatabase buildDatabase(Context context) {
-        return Room.databaseBuilder(context.getApplicationContext(), BrowserDatabase.class, "browser.db")
-                .allowMainThreadQueries()
-                .build();
+    public static synchronized BrowserDatabase getDatabase(Context context){
+        if(INSTANCE == null){
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),BrowserDatabase.class,"browser.db")
+                    .allowMainThreadQueries()
+                    .build();
+        }
+        return INSTANCE;
     }
 
     public abstract HistoryRecordDao getHistoryRecordDao();

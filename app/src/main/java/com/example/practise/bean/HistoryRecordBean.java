@@ -8,6 +8,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.util.Date;
@@ -32,6 +33,15 @@ public class HistoryRecordBean extends BaseObservable implements Parcelable {
     private String hdate;
 
     public HistoryRecordBean(String hname, String hurl, String hicon, String hdate){
+        this.hname = hname;
+        this.hurl = hurl;
+        this.hicon = hicon;
+        this.hdate = hdate;
+    }
+
+    @Ignore
+    public HistoryRecordBean(int id, String hname, String hurl, String hicon, String hdate) {
+        this.id = id;
         this.hname = hname;
         this.hurl = hurl;
         this.hicon = hicon;

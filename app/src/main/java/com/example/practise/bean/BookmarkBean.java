@@ -8,6 +8,7 @@ import androidx.databinding.Bindable;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "bookmark")
@@ -43,6 +44,19 @@ public class BookmarkBean extends BaseObservable implements Parcelable {
     private int sort ;//排序码，present一样的情况下，从0开始计数
 
     public BookmarkBean(String bname, String burl, String bicon, int bnum, int isFolder, int upper, int present, int sort) {
+        this.bname = bname;
+        this.burl = burl;
+        this.bicon = bicon;
+        this.bnum = bnum;
+        this.isFolder = isFolder;
+        this.upper = upper;
+        this.present = present;
+        this.sort = sort;
+    }
+
+    @Ignore
+    public BookmarkBean(int id, String bname, String burl, String bicon, int bnum, int isFolder, int upper, int present, int sort) {
+        this.id = id;
         this.bname = bname;
         this.burl = burl;
         this.bicon = bicon;

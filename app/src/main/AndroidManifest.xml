@@ -9,17 +9,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Practise">
-        <activity android:name=".base.BaseActivity"></activity>
-        <activity
-            android:name=".test.TestDataActivity"
-            android:exported="true">
+        <activity android:name=".module_bookmark.BookmarkActivity">
 
             <!-- 此处设置 intent-filter -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".base.BaseActivity" />
+        <activity
+            android:name=".test.TestDataActivity"
+            android:exported="true">
+
         </activity>
     </application>
 

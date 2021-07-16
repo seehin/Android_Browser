@@ -1,5 +1,6 @@
 package com.example.practise.dao;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,7 +21,7 @@ public interface BookmarkDao {
      * @return
      */
     @Query("SELECT * FROM bookmark")
-    List<BookmarkBean> getBookmarkAll();
+    LiveData<List<BookmarkBean>> getBookmarkAll();
 
     /**
      * 根据指定字段模糊查询，根据输入的搜索内容搜索网址的名称name和网址url
@@ -28,7 +29,7 @@ public interface BookmarkDao {
      * @return
      */
     @Query("SELECT * FROM bookmark WHERE bname = :input or burl = :input")
-    List<BookmarkBean> loadBookmarkByinput(String input);
+    LiveData<List<BookmarkBean>> loadBookmarkByinput(String input);
 
     /**
      * 项数据库添加数据
