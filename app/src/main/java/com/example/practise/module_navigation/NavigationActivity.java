@@ -95,18 +95,49 @@ public class NavigationActivity extends BaseActivity {
         String homeUrl = intentOfHistory.getStringExtra("home_url");
 
         binding = DataBindingUtil.setContentView(this, R.layout.navigation_activity);
-        binding.winnum.setText(WebViewHelper.webList.size()+1+"");
+        binding.winnum.setText(WebViewHelper.webList.size() + 1 + "");
         MenuItem starItem = binding.navigationToolbar.getMenu().findItem(R.id.star);//拿到收藏item
-//        LinearLayout web_failure = binding.webFailure;
 
         if (WebViewHelper.currentWebView != null) {
             webView = binding.webView;
             WebSettings settings = webView.getSettings();
             settings.setJavaScriptEnabled(true);
-            if(WebViewHelper.currentBundle!=null){
+            if (WebViewHelper.currentBundle != null) {
                 webView.restoreState(WebViewHelper.currentBundle);
+                webView.setWebViewClient(new WebViewClient() {
+                    public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+                        view.loadUrl(url);
+                        return super.shouldOverrideUrlLoading(view, url);
+
+                    }
+
+                    @Override
+                    public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                        flag = false;
+                        binding.searchText.setText(view.getUrl());
+
+                    }
+
+                    @Override
+                    public void onPageFinished(WebView view, String url) {
+                        if (flag) {
+                            Toast.makeText(NavigationActivity.this, "网络异常，请确认网络后刷新", Toast.LENGTH_SHORT).show();
+                        }
+                        //记录浏览的历史记录
+                        historyRecordViewModel.insertHistoryRecord(view.getTitle(), view.getUrl(), UrlUtil.getIconUrl(view.getUrl()), new Date());
+                        loadStar(url);
+                    }
+
+                    // 加载错误的时候会回调，在其中可做错误处理
+                    @Override
+                    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                        super.onReceivedError(view, request, error);
+                        flag = true;
+                    }
+                });
                 binding.searchText.setText(WebViewHelper.currentWebView.getUrl());
-            }else {
+            } else {
                 webView.loadUrl(WebViewHelper.currentWebView.getUrl());
             }
 
@@ -129,10 +160,7 @@ public class NavigationActivity extends BaseActivity {
                         Log.e("houxl", "生成实时窗口");
                         WebViewHelper.currentWebView = webView;
                         webView.setDrawingCacheEnabled(true);
-                        WebViewHelper.webList.add(new WebViewFragment(webView, webView.getDrawingCache()));
-                        if (webView.getDrawingCache() == null) {
-                            Log.e("houxl", "图片为空");
-                        }
+                        WebViewHelper.webList.add(new WebViewFragment(webView, myShot(NavigationActivity.this)));
 
                     }
                     WebViewHelper.isExist = true;
@@ -165,8 +193,32 @@ public class NavigationActivity extends BaseActivity {
                     }
                     return false;
                 }
+
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    flag = false;
+                    binding.searchText.setText(view.getUrl());
+
+                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    if (flag) {
+                        Toast.makeText(NavigationActivity.this, "网络异常，请确认网络后刷新", Toast.LENGTH_SHORT).show();
+                    }
+                    //记录浏览的历史记录
+                    historyRecordViewModel.insertHistoryRecord(view.getTitle(), view.getUrl(), UrlUtil.getIconUrl(view.getUrl()), new Date());
+                    loadStar(url);
+                }
+
+                // 加载错误的时候会回调，在其中可做错误处理
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    super.onReceivedError(view, request, error);
+                    flag = true;
+                }
             });
-        }else if(homeUrl != null){
+        } else if (homeUrl != null) {
             webView = binding.webView;
             WebSettings settings = webView.getSettings();
             settings.setJavaScriptEnabled(true);
@@ -195,8 +247,6 @@ public class NavigationActivity extends BaseActivity {
                     if (flag) {
                         Toast.makeText(NavigationActivity.this, "网络异常，请确认网络后刷新", Toast.LENGTH_SHORT).show();
                     }
-//                            web_failure.setVisibility(View.GONE);
-//                    webView.setVisibility(View.VISIBLE);
                     //记录浏览的历史记录
                     historyRecordViewModel.insertHistoryRecord(view.getTitle(), view.getUrl(), UrlUtil.getIconUrl(view.getUrl()), new Date());
                     loadStar(url);
@@ -207,10 +257,6 @@ public class NavigationActivity extends BaseActivity {
                 public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                     super.onReceivedError(view, request, error);
                     flag = true;
-//                            MenuItem starItem = binding.navigationToolbar.getMenu().findItem(R.id.star);
-//                            starItem.setVisible(false);
-//                            web_failure.setVisibility(View.VISIBLE);
-//                            webView.setVisibility(View.GONE);
                 }
             });
         }
@@ -218,7 +264,7 @@ public class NavigationActivity extends BaseActivity {
         //接收书签url
         intentOfBookmark = getIntent();
         String bookmarkUrl = intentOfBookmark.getStringExtra("bookmark_url");
-        if (bookmarkUrl != null){
+        if (bookmarkUrl != null) {
             webView = binding.webView;
             WebSettings settings = webView.getSettings();
             settings.setJavaScriptEnabled(true);
@@ -231,11 +277,32 @@ public class NavigationActivity extends BaseActivity {
                     }
                     return false;
                 }
+
+                @Override
+                public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                    flag = false;
+                    binding.searchText.setText(view.getUrl());
+
+                }
+
+                @Override
+                public void onPageFinished(WebView view, String url) {
+                    if (flag) {
+                        Toast.makeText(NavigationActivity.this, "网络异常，请确认网络后刷新", Toast.LENGTH_SHORT).show();
+                    }
+                    //记录浏览的历史记录
+                    historyRecordViewModel.insertHistoryRecord(view.getTitle(), view.getUrl(), UrlUtil.getIconUrl(view.getUrl()), new Date());
+                    loadStar(url);
+                }
+
+                // 加载错误的时候会回调，在其中可做错误处理
+                @Override
+                public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                    super.onReceivedError(view, request, error);
+                    flag = true;
+                }
             });
         }
-
-
-
 
 
         binding.navigationToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
@@ -267,9 +334,8 @@ public class NavigationActivity extends BaseActivity {
                         break;
                     case R.id.add_home:
                         webView = binding.webView;
-                        System.out.println("aaaaaa");
 
-                        if (homeViewModel.selectALL() == null|| homeViewModel.selectALL().size() <= 8 ) {
+                        if (homeViewModel.selectALL() == null || homeViewModel.selectALL().size() <= 8) {
 
                             if (homeViewModel.search_url(webView.getUrl()).size() == 0) {
 
@@ -332,30 +398,26 @@ public class NavigationActivity extends BaseActivity {
                         @Override
                         public void onPageFinished(WebView view, String url) {
                             if (flag) {
-                                Toast.makeText(NavigationActivity.this, "网络异常，请确认网络后刷新", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(NavigationActivity.this, "异常", Toast.LENGTH_SHORT).show();
                             }
-//                            web_failure.setVisibility(View.GONE);
                             webView.setVisibility(View.VISIBLE);
                             //记录浏览的历史记录
                             historyRecordViewModel.insertHistoryRecord(view.getTitle(), view.getUrl(), UrlUtil.getIconUrl(view.getUrl()), new Date());
                             loadStar(url);
                         }
 
-                        //                        加载错误的时候会回调，在其中可做错误处理
+                        // 加载错误的时候会回调，在其中可做错误处理
                         @Override
                         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                             super.onReceivedError(view, request, error);
                             flag = true;
-//                            MenuItem starItem = binding.navigationToolbar.getMenu().findItem(R.id.star);
-//                            starItem.setVisible(false);
-//                            web_failure.setVisibility(View.VISIBLE);
-//                            webView.setVisibility(View.GONE);
                         }
                     });
                 }
                 return true;
             }
         });
+
 
         //返回上一页
         binding.backBtn.setOnClickListener(new View.OnClickListener() {
@@ -365,7 +427,7 @@ public class NavigationActivity extends BaseActivity {
                 if (webView.canGoBack()) {
                     webView.goBack();
                 } else {
-                    webView.reload();
+                    finish();
                 }
             }
         });
@@ -374,7 +436,7 @@ public class NavigationActivity extends BaseActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(webView!=null){
+        if (webView != null) {
             webView.saveState(outState);
         }
         WebViewHelper.currentBundle = outState;
@@ -427,5 +489,18 @@ public class NavigationActivity extends BaseActivity {
         view.destroyDrawingCache();
 
         return bmp;
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent home = new Intent(NavigationActivity.this, Home_Activity.class);
+            startActivity(home);
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
