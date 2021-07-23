@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/removeItem"
+        android:title="@string/history_delete"
+        app:showAsAction="never"
+        android:orderInCategory="100"
+        />
+
+    <item
+        android:id="@+id/historyCopyItem"
+        android:title="@string/history_copy"
+        app:showAsAction="never"
+        android:orderInCategory="101"
+        />
+
+</menu>

@@ -43,6 +43,10 @@ public class HistoryRecordRepository {
         return historyByTime;
     }
 
+    public List<HistoryRecordBean> getAll(){
+        return historyRecordDao.getAll();
+    }
+
     //增加history(单条)，输入数据为new HistoryRecordBean(hname, hurl, hicon, hdate)
     public void insertHistoryRecord(String hname, String hurl, String hicon, Date hdate) {
         String dateString = DataConversionFactory.fromDateToString(hdate);
@@ -53,6 +57,32 @@ public class HistoryRecordRepository {
     public void deleteHistoryRecord(HistoryRecordBean... historyRecordBeans){
         new DeleteAsyncTask(historyRecordDao).execute(historyRecordBeans);
     }
+
+    //删除所有的记录
+    public void deleteAll(){
+        new DeleteAsyncTask(historyRecordDao).deleteAll();
+    }
+
+    //删除今天的记录
+    public void deleteTodayHistory(String date){
+        new DeleteAsyncTask(historyRecordDao).deleteTodayHistory(date);
+    }
+
+    public void deleteHistoryRecordById(int id){
+        new DeleteAsyncTask(historyRecordDao).deleteOneHistoryRecord(id);
+    }
+
+    public List<HistoryRecordBean> getFuzzySearchToList(String content){
+        return historyRecordDao.fuzzySearchToList(content);
+    }
+
+    public LiveData<List<HistoryRecordBean>> getFuzzySearch(String content){
+        return new InsertAsyncTask(historyRecordDao).fuzzySearch(content);
+    }
+
+    public List<Integer> getAllId(){
+        return historyRecordDao.getAllId();
+    };
 
     static class InsertAsyncTask extends AsyncTask<HistoryRecordBean,Void,Void> {
         private HistoryRecordDao historyRecordDao;
@@ -66,6 +96,10 @@ public class HistoryRecordRepository {
 
             historyRecordDao.insertAll(historyRecordBeans1);
             return null;
+        }
+
+        public LiveData<List<HistoryRecordBean>> fuzzySearch(String content){
+            return historyRecordDao.fuzzySearch(content);
         }
     }
 
@@ -81,5 +115,18 @@ public class HistoryRecordRepository {
             historyRecordDao.delete(bean);
             return null;
         }
+
+        public void deleteOneHistoryRecord(int id){
+            this.historyRecordDao.deleteOne(id);
+        }
+
+        public void deleteAll(){
+            this.historyRecordDao.deleteAll();
+        }
+
+        public void deleteTodayHistory(String date){
+            this.historyRecordDao.deleteTodayHistory(date);
+        }
+
     }
 }

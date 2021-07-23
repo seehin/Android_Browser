@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="round_button" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:backgroundTint">#5e616d</item>
+    </style>
+</resources>

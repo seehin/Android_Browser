@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/history_search_page">
+
+        <LinearLayout
+            android:id="@+id/history_search_page_frame"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            tools:ignore="RtlHardcoded"
+
+            >
+
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp"
+                android:layout_weight="12">
+
+                <EditText
+                    android:id="@+id/history_page_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/history_page_background"
+                    android:ellipsize="start"
+                    android:paddingLeft="45dp"
+                    android:paddingStart="45dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="2dp"
+                    android:singleLine="true"
+                    android:paddingEnd="18dp"
+                    android:textSize="16sp"
+                    android:textColor="#929292"
+                    android:textCursorDrawable="@drawable/cursor"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text" />
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/search" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/history_page_cancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/history_search_cancel"
+                    android:textColor="#2376b7"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <View
+            android:id="@+id/history_search_page_line"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_below="@+id/history_search_page_frame"
+            android:layout_marginTop="10dp"
+            android:background="#e2e1e4" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/history_search_page_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/history_search_page_line"
+            android:layout_marginTop="5dp" />
+
+    </RelativeLayout>
+</layout>

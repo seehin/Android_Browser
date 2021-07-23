@@ -6,7 +6,6 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
-import androidx.room.Update;
 
 import com.example.practise.bean.HistoryRecordBean;
 
@@ -40,6 +39,25 @@ public interface HistoryRecordDao {
         LiveData<List<HistoryRecordBean>> loadHistoryRecordByDate(String dateString);
 
         /**
+         * 模糊搜素
+         * @param content 输入内容
+         * @return 符合的历史记录
+         */
+        @Query("select * from historyrecord where hname like '%'||:content||'%' or hurl like '%'||:content||'%'")
+        LiveData<List<HistoryRecordBean>> fuzzySearch(String content);
+
+        /**
+         * 模糊搜素
+         * @param content 输入内容
+         * @return 符合的历史记录
+         */
+        @Query("select * from historyrecord where hname like '%'||:content||'%' or hurl like '%'||:content||'%'")
+        List<HistoryRecordBean> fuzzySearchToList(String content);
+
+        @Query("select * from historyrecord")
+        List<HistoryRecordBean> getAll();
+
+        /**
          * 项数据库添加数据
          *
          * @param historyRecordList
@@ -62,4 +80,20 @@ public interface HistoryRecordDao {
          */
         @Delete()
         void delete(HistoryRecordBean historyRecordBean);
+
+        /**
+         * 根据id删除指定记录
+         * @param id
+         */
+        @Query("delete from historyrecord where id = :id")
+        void deleteOne(int id);
+
+        @Query("delete from historyrecord")
+        void deleteAll();
+
+        @Query("delete from historyrecord where hdate = :date")
+        void deleteTodayHistory(String date);
+
+        @Query("select id from historyrecord")
+        List<Integer> getAllId();
 }

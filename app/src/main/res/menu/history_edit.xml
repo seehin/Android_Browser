@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <item
+        android:id="@+id/remove_today_history"
+        android:title="@string/clear_today_history"
+        app:showAsAction="never"
+        android:orderInCategory="100"/>
+
+    <item
+        android:id="@+id/remove_all_history"
+        android:title="@string/clear_all_history"
+        app:showAsAction="never"
+        android:orderInCategory="200"/>
+
+ </menu>

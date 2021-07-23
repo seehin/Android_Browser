@@ -5,16 +5,13 @@ import android.os.Parcelable;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
-import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 @Entity(tableName = "historyrecord")
-public class HistoryRecordBean extends BaseObservable implements Parcelable {
+public class HistoryRecordBean extends BaseObservable implements Parcelable,Comparable<HistoryRecordBean> {
 
     @PrimaryKey(autoGenerate = true) // 设置主键
     @ColumnInfo(name = "id") // 定义对应的数据库的字段名成
@@ -40,7 +37,7 @@ public class HistoryRecordBean extends BaseObservable implements Parcelable {
     }
 
     @Ignore
-    public HistoryRecordBean(int id, String hname, String hurl, String hicon, String hdate) {
+    public HistoryRecordBean() {
         this.id = id;
         this.hname = hname;
         this.hurl = hurl;
@@ -63,7 +60,6 @@ public class HistoryRecordBean extends BaseObservable implements Parcelable {
 
     public void setHname(String hname) {
         this.hname = hname;
-        notifyPropertyChanged(BR.hname);
     }
 
     @Bindable
@@ -73,7 +69,6 @@ public class HistoryRecordBean extends BaseObservable implements Parcelable {
 
     public void setHurl(String hurl) {
         this.hurl = hurl;
-        notifyPropertyChanged(BR.hurl);
     }
 
     @Bindable
@@ -81,9 +76,8 @@ public class HistoryRecordBean extends BaseObservable implements Parcelable {
         return hicon;
     }
 
-    public void setIcon(String hicon) {
+    public void setHicon(String hicon) {
         this.hicon = hicon;
-        notifyPropertyChanged(BR.hicon);
     }
 
     @Bindable
@@ -93,7 +87,6 @@ public class HistoryRecordBean extends BaseObservable implements Parcelable {
 
     public void setHdate(String hdate) {
         this.hdate = hdate;
-        notifyPropertyChanged(BR.hdate);
     }
 
     protected HistoryRecordBean(Parcel in) {
@@ -128,5 +121,21 @@ public class HistoryRecordBean extends BaseObservable implements Parcelable {
         dest.writeString(this.hurl);
         dest.writeString(this.hicon);
         dest.writeString(this.hdate);
+    }
+
+    @Override
+    public int compareTo(HistoryRecordBean h) {
+        return h.getId() - this.id;
+    }
+
+    @Override
+    public String toString() {
+        return "HistoryRecordBean{" +
+                "id=" + id +
+                ", hname='" + hname + '\'' +
+                ", hurl='" + hurl + '\'' +
+                ", hicon='" + hicon + '\'' +
+                ", hdate='" + hdate + '\'' +
+                '}';
     }
 }

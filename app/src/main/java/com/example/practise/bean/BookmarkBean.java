@@ -1,15 +1,24 @@
 package com.example.practise.bean;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.ImageView;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+import androidx.databinding.BindingAdapter;
 import androidx.databinding.library.baseAdapters.BR;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
+
+import com.bumptech.glide.Glide;
+import com.example.practise.R;
 
 @Entity(tableName = "bookmark")
 public class BookmarkBean extends BaseObservable implements Parcelable {
@@ -37,25 +46,21 @@ public class BookmarkBean extends BaseObservable implements Parcelable {
     @ColumnInfo(name = "upper")
     private int upper;//上一层文件夹的id，第一层的书签由于没有上一层，记-1
 
-    @ColumnInfo(name = "present")
-    private int present;//该书签（网址或者文件夹）位于第几层，从0开始计数
-
     @ColumnInfo(name = "sort")
     private int sort ;//排序码，present一样的情况下，从0开始计数
 
-    public BookmarkBean(String bname, String burl, String bicon, int bnum, int isFolder, int upper, int present, int sort) {
+    public BookmarkBean(String bname, String burl, String bicon, int bnum, int isFolder, int upper, int sort) {
         this.bname = bname;
         this.burl = burl;
         this.bicon = bicon;
         this.bnum = bnum;
         this.isFolder = isFolder;
         this.upper = upper;
-        this.present = present;
         this.sort = sort;
     }
 
     @Ignore
-    public BookmarkBean(int id, String bname, String burl, String bicon, int bnum, int isFolder, int upper, int present, int sort) {
+    public BookmarkBean(int id, String bname, String burl, String bicon, int bnum, int isFolder, int upper, int sort) {
         this.id = id;
         this.bname = bname;
         this.burl = burl;
@@ -63,7 +68,6 @@ public class BookmarkBean extends BaseObservable implements Parcelable {
         this.bnum = bnum;
         this.isFolder = isFolder;
         this.upper = upper;
-        this.present = present;
         this.sort = sort;
     }
 
@@ -75,44 +79,36 @@ public class BookmarkBean extends BaseObservable implements Parcelable {
         this.id = id;
     }
 
-    @Bindable
     public String getBname() {
         return bname;
     }
 
     public void setBname(String bname) {
         this.bname = bname;
-        notifyPropertyChanged(BR.bname);
     }
 
-    @Bindable
     public int getBnum() {
         return bnum;
     }
 
     public void setBnum(int bnum) {
         this.bnum = bnum;
-        notifyPropertyChanged(BR.bnum);
     }
 
-    @Bindable
     public String getBurl() {
         return burl;
     }
 
     public void setBurl(String burl) {
         this.burl = burl;
-        notifyPropertyChanged(BR.burl);
     }
 
-    @Bindable
     public String getBicon() {
         return bicon;
     }
 
     public void setBicon(String bicon) {
         this.bicon = bicon;
-        notifyPropertyChanged(BR.bicon);
     }
 
     public int getIsFolder() {
@@ -131,14 +127,6 @@ public class BookmarkBean extends BaseObservable implements Parcelable {
         this.upper = upper;
     }
 
-    public int getPresent() {
-        return present;
-    }
-
-    public void setPresent(int present) {
-        this.present = present;
-    }
-
     public int getSort() {
         return sort;
     }
@@ -154,7 +142,6 @@ public class BookmarkBean extends BaseObservable implements Parcelable {
         this.bicon = in.readString();
         this.isFolder = in.readInt();
         this.upper = in.readInt();
-        this.present = in.readInt();
         this.sort = in.readInt();
     }
 
@@ -183,7 +170,20 @@ public class BookmarkBean extends BaseObservable implements Parcelable {
         dest.writeString(this.bicon);
         dest.writeInt(this.isFolder);
         dest.writeInt(this.upper);
-        dest.writeInt(this.present);
         dest.writeInt(this.sort);
+    }
+
+    //网址图标加载
+    @BindingAdapter({"bicon"})
+    public static void loadIcon(ImageView imageView, String bicon){
+        Context imageContext = imageView.getContext();
+        Resources resources = imageContext.getResources();
+        if (bicon.trim().length() == 0){//加载文件夹图片
+            Bitmap oldBmp = BitmapFactory.decodeResource(resources, R.drawable.bookmark_folder);
+            Bitmap newBmp = Bitmap.createScaledBitmap(oldBmp, 53, 53, true);
+            imageView.setImageBitmap(newBmp);
+        }else{//加载网址图标
+            Glide.with(imageContext).load(bicon).override(48,48).into(imageView);
+        }
     }
 }

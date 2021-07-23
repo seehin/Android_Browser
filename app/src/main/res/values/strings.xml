@@ -1,5 +1,23 @@
 <resources>
     <string name="app_name">Practise</string>
+    <string name="clear_history">清除浏览记录...</string>
+    <string name="history_title">历史记录</string>
+    <string name="history_search">搜索历史记录</string>
+    <string name="history_close">关闭历史记录</string>
+    <string name="history_delete">删除本记录</string>
+    <string name="history_copy">复制链接</string>
+    <string name="list_history_edit">编辑</string>
+    <string name="clear_all_history">清除所有记录</string>
+    <string name="clear_today_history">清除今天记录</string>
+    <string name="history_search_cancel">取消</string>
     <string name="action_search">搜索</string>
     <string name="action_close">关闭</string>
+    <string name="bookmark">书签</string>
+    <string name="new_folder">新建文件夹</string>
+    <string name="edit">编辑</string>
+    <string name="search">搜索</string>
+    <string name="null_quickvisit">空导航页</string>
+    <string name="NULL">NULL</string>
+    <string name="no_history">暂无相关记录</string>
+    <string name="delete_today">删除</string>
 </resources>

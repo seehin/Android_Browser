@@ -5,15 +5,17 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
 import com.example.practise.bean.BookmarkBean;
 import com.example.practise.bean.HistoryRecordBean;
+import com.example.practise.bean.HomeBean;
+import com.example.practise.bean.QuickWayBean;
 import com.example.practise.dao.BookmarkDao;
 import com.example.practise.dao.HistoryRecordDao;
-import com.example.practise.utils.DataConversionFactory;
+import com.example.practise.dao.HomeDao;
+import com.example.practise.dao.QuickWayDao;
 
-@Database(entities = {HistoryRecordBean.class, BookmarkBean.class}, version = 1, exportSchema = false)
+@Database(entities = {HistoryRecordBean.class, BookmarkBean.class, QuickWayBean.class, HomeBean.class}, version = 1, exportSchema = false)
 public abstract class BrowserDatabase extends RoomDatabase {
     private static BrowserDatabase INSTANCE;
 
@@ -29,4 +31,8 @@ public abstract class BrowserDatabase extends RoomDatabase {
     public abstract HistoryRecordDao getHistoryRecordDao();
 
     public abstract BookmarkDao getBookmarkDao();
+
+    public abstract QuickWayDao getQuickWayDao();
+
+    public abstract HomeDao getHomeDao();
 }

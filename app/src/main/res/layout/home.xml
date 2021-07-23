@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".module_home.UI.Home_Activity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="0dp"
+            app:navigationIcon="@mipmap/home"
+            app:contentInsetStartWithNavigation="0dp"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:menu="@menu/home_menu"
+            >
+
+            <ImageButton
+                android:layout_marginRight="10dp"
+                android:id="@+id/home_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/back"
+                android:background="@color/white"/>
+
+            <EditText
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:id="@+id/homesearch_text"
+                android:layout_marginLeft="0dp"
+                android:layout_width="160dp"
+                android:layout_marginStart="2dp"
+                android:layout_height="32dp"
+                android:background="@drawable/border"
+
+                />
+            <FrameLayout
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                >
+                <ImageView
+                    android:id="@+id/opwin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/window"
+                    />
+                <TextView
+                    android:id="@+id/winnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:textColor="@color/black"/>
+            </FrameLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+            >
+
+            <LinearLayout
+                android:id="@+id/quick_visit_unit_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:onClick="unit_click"
+                >
+
+                <TextView
+                    android:id="@+id/quick_visit_id_1"
+                    style="@style/quick_id">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/quick_visit_iconUrl_1"
+                    style="@style/quick_url">
+
+                </TextView>
+
+                <ImageView
+                    android:id = "@+id/quick_visit_icon_1"
+                    style="@style/quick_visit_icon"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_name_1"
+                    style="@style/quick_visit_name"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_url_1"
+                    style="@style/quick_url"
+                    >
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quick_visit_unit_2"
+
+                style="@style/quick_visit_unit"
+                >
+
+                <TextView
+                    android:id="@+id/quick_visit_id_2"
+                    style="@style/quick_id">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/quick_visit_iconUrl_2"
+                    style="@style/quick_url">
+
+                </TextView>
+
+                <ImageView
+                    android:id = "@+id/quick_visit_icon_2"
+
+                    style="@style/quick_visit_icon"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_name_2"
+                    style="@style/quick_visit_name"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_url_2"
+                    style="@style/quick_url"
+
+                    >
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quick_visit_unit_3"
+                style="@style/quick_visit_unit"
+                >
+
+                <TextView
+                    android:id="@+id/quick_visit_id_3"
+                    style="@style/quick_id">
+                </TextView>
+
+                <TextView
+                    android:id="@+id/quick_visit_iconUrl_3"
+                    style="@style/quick_url">
+
+                </TextView>
+
+                <ImageView
+                    android:id = "@+id/quick_visit_icon_3"
+
+                    style="@style/quick_visit_icon"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_name_3"
+                    style="@style/quick_visit_name"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_url_3"
+                    style="@style/quick_url"
+                    >
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quick_visit_unit_4"
+                style="@style/quick_visit_unit"
+                >
+
+                <TextView
+                    android:id="@+id/quick_visit_id_4"
+                    style="@style/quick_id">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/quick_visit_iconUrl_4"
+                    style="@style/quick_url">
+
+                </TextView>
+
+                <ImageView
+                    android:id = "@+id/quick_visit_icon_4"
+
+                    style="@style/quick_visit_icon"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_name_4"
+                    style="@style/quick_visit_name"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_url_4"
+                    style="@style/quick_url"
+
+                    >
+                </TextView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"
+
+            >
+
+            <LinearLayout
+                android:id="@+id/quick_visit_unit_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:onClick="unit_click"
+                >
+
+                <TextView
+                    android:id="@+id/quick_visit_id_5"
+                    style="@style/quick_id">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/quick_visit_iconUrl_5"
+                    style="@style/quick_url">
+
+                </TextView>
+
+                <ImageView
+                    android:id = "@+id/quick_visit_icon_5"
+                    style="@style/quick_visit_icon"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_name_5"
+                    style="@style/quick_visit_name"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_url_5"
+                    style="@style/quick_url"
+
+                    >
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quick_visit_unit_6"
+                style="@style/quick_visit_unit"
+                >
+
+                <TextView
+                    android:id="@+id/quick_visit_id_6"
+                    style="@style/quick_id">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/quick_visit_iconUrl_6"
+                    style="@style/quick_url">
+
+                </TextView>
+
+                <ImageView
+                    android:id = "@+id/quick_visit_icon_6"
+                    style="@style/quick_visit_icon"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_name_6"
+                    style="@style/quick_visit_name"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_url_6"
+                    style="@style/quick_url"
+
+                    >
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quick_visit_unit_7"
+                style="@style/quick_visit_unit"
+                >
+
+                <TextView
+                    android:id="@+id/quick_visit_id_7"
+                    style="@style/quick_id">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/quick_visit_iconUrl_7"
+                    style="@style/quick_url">
+
+                </TextView>
+
+                <ImageView
+                    android:id = "@+id/quick_visit_icon_7"
+                    style="@style/quick_visit_icon"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_name_7"
+                    style="@style/quick_visit_name"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_url_7"
+                    style="@style/quick_url"
+
+                    >
+                </TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/quick_visit_unit_8"
+                style="@style/quick_visit_unit"
+                >
+
+                <TextView
+                    android:id="@+id/quick_visit_id_8"
+                    style="@style/quick_id">
+
+                </TextView>
+
+                <TextView
+                    android:id="@+id/quick_visit_iconUrl_8"
+                    style="@style/quick_url">
+
+                </TextView>
+
+                <ImageView
+                    android:id = "@+id/quick_visit_icon_8"
+                    style="@style/quick_visit_icon"
+                    >
+                </ImageView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_name_8"
+                    style="@style/quick_visit_name"
+                    >
+                </TextView>
+
+                <TextView
+                    android:id = "@+id/quick_visit_url_8"
+                    style="@style/quick_url"
+
+                    >
+                </TextView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

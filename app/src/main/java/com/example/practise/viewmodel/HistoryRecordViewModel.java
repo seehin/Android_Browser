@@ -14,7 +14,7 @@ import java.util.List;
 
 public class HistoryRecordViewModel extends AndroidViewModel {
 
-    private HistoryRecordRepository historyRecordRepository;
+    private final HistoryRecordRepository historyRecordRepository;
 
     public HistoryRecordViewModel(@NonNull Application application) {
         super(application);
@@ -40,5 +40,33 @@ public class HistoryRecordViewModel extends AndroidViewModel {
 
     public void deleteHistoryRecord(HistoryRecordBean... historyRecordBeans){
         historyRecordRepository.deleteHistoryRecord(historyRecordBeans);
+    }
+
+    public void deleteOneHistoryRecord(int id){
+        historyRecordRepository.deleteHistoryRecordById(id);
+    }
+
+    public void deleteAll(){
+        historyRecordRepository.deleteAll();
+    }
+
+    public void deleteTodayHistory(String date){
+        historyRecordRepository.deleteTodayHistory(date);
+    }
+
+    public List<Integer> getAllIdOfHistory(){
+        return historyRecordRepository.getAllId();
+    }
+
+    public LiveData<List<HistoryRecordBean>> getFuzzySearchInfo(String content){
+        return historyRecordRepository.getFuzzySearch(content);
+    }
+
+    public List<HistoryRecordBean> getFuzzySearchInfoToList(String content){
+        return historyRecordRepository.getFuzzySearchToList(content);
+    }
+
+    public List<HistoryRecordBean> getAll(){
+        return historyRecordRepository.getAll();
     }
 }
