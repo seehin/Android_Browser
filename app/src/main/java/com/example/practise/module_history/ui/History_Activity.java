@@ -136,13 +136,7 @@ public class History_Activity extends AppCompatActivity {
         });
 
         //点击事件
-        historyAdapter.setOnItemClickListener((view, section, position) -> {
-            if (historyAdapter.getIsClickAllow()){
-                onClickShow(view);
-            }else{
-                Toast.makeText(this,"复选框下不可以点击",Toast.LENGTH_SHORT).show();
-            }
-        });
+        onClickShow();
 
         //点击编辑按钮
         buttonOfCheckBox.setOnClickListener(v -> showCheckBox());
@@ -195,6 +189,7 @@ public class History_Activity extends AppCompatActivity {
 
     }
 
+
     /**
      * 点击清除历史记录按键触发事件
      * @param view 视图
@@ -235,19 +230,18 @@ public class History_Activity extends AppCompatActivity {
 
     /**
      * 单击item触发事件
-     * @param view 视图
      */
-    private void onClickShow(View view){
-        //添加点击事件
-        /*TextView url = view.findViewById(R.id.list_history_url);
-        Uri uri = Uri.parse(url.getText().toString());
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(uri);
-        startActivity(intent);*/
-        TextView url = view.findViewById(R.id.list_history_url);
-        Intent intent = new Intent(History_Activity.this, NavigationActivity.class);
-        intent.putExtra("history_url",url.getText().toString());
-        startActivity(intent);
+    private void onClickShow(){
+        historyAdapter.setOnItemClickListener((view, section, position) -> {
+            if (historyAdapter.getIsClickAllow()){
+                TextView url = view.findViewById(R.id.list_history_url);
+                Intent intent = new Intent(History_Activity.this, NavigationActivity.class);
+                intent.putExtra("history_url",url.getText().toString());
+                startActivity(intent);
+            }else{
+                System.out.println("99999999999999999999999999999999999999999999999999999");
+            }
+        });
     }
 
     /**
@@ -329,7 +323,11 @@ public class History_Activity extends AppCompatActivity {
         //打开复选框
         historyAdapter.setIsShowCheckBox();
         //复选框点击
-        selectItem();
+        if (historyAdapter.getIsShowCheckBox()){
+            selectItem();
+        }else{
+            onClickShow();
+        }
         //关闭其他触控事件
         historyAdapter.setIsClickAllow();
         //改变该按钮的文字
@@ -351,7 +349,6 @@ public class History_Activity extends AppCompatActivity {
             buttonOfHistoryEdit.setText("");
             selectAll.setVisibility(View.VISIBLE);
             deleteHistoryOfChoice.setVisibility(View.VISIBLE);
-
         }else{
             recyclerView.setEnabled(true);
             buttonOfHistoryEdit.setEnabled(true);
@@ -368,8 +365,11 @@ public class History_Activity extends AppCompatActivity {
     public void selectItem(){
         historyAdapter.setOnItemClickListener((view, section, position) -> {
             historyAdapter.setSelectItem(section, position);
+            historyAdapter.notifyDataSetChanged();
         });
     }
+
+
 
     /**
      * 点击全选按钮

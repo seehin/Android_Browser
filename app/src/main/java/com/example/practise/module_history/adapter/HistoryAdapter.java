@@ -281,6 +281,9 @@ public class HistoryAdapter extends SectionedRecyclerViewAdapter<
         this.notifyDataSetChanged();
     }
 
+
+
+
     /**
      * 渲染每条历史记录(item)
      * @param parent 每条历史记录的HistoryHolder的容器
@@ -388,18 +391,22 @@ public class HistoryAdapter extends SectionedRecyclerViewAdapter<
         }
         holder.checkBox.setChecked(mapOfCheckBox.get(section*10+position));
 
+        //点击事件
+        if (onItemClickListener != null){
+            holder.itemView.setOnClickListener(v ->{
+                onItemClickListener.onItemClick(holder.itemView,section,position);
+            });
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        super.onBindViewHolder(holder, position);
         //长按事件
         if(onItemLongClickListener!=null) {
             holder.itemView.setOnLongClickListener(v -> {
                 onItemLongClickListener.onItemLongClick(holder.itemView,position);
                 return false;
-            });
-        }
-
-        //点击事件
-        if (onItemClickListener != null){
-            holder.itemView.setOnClickListener(v ->{
-                onItemClickListener.onItemClick(holder.itemView,section,position);
             });
         }
     }
